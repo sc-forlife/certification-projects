@@ -20,4 +20,10 @@ describe("convertMarkdown", () => {
 
     expect(match).toBe("####### Hello");
   });
+
+  it("Return string with italics only", () => {
+    const match = convertMarkdown("*Hello*");
+
+    expect(match).toBe("<p><em>Hello</em></p>");
+  });
 });
