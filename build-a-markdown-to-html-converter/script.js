@@ -1,24 +1,30 @@
-export function convertMarkdown(stringTest) {
+function wordToHtml(string) {
   const markdownInput = stringTest;
 
-  const regexBold = /^(\*\*).*\1$|^(\_\_).*\2$/gi;
-  const regexItalic = /^(\*).*\1$|^(\_).*\2$/gi;
+  const regexBold = /(\*\*).*\1|(\_\_).*\2/gi;
+  const regexItalic = /(\*).*\1|(\_).*\2/gi;
   const regexHeading = /^#{1,6}\s.*/gi;
+  let pTagCheck = false;
 
-  let matchItalics = markdownInput.replace(regexItalic, (match) => {
-    return `<em>${match.slice(1, match.length - 1)}</em>`;
-  });
-
-  console.log(matchItalics, "Italics");
-
-  let matchBold = matchItalics.replace(regexBold, (match) => {
+  //convert to bold
+  let matchBold = markdownInput.replace(regexBold, (match) => {
+    pTagCheck = true;
     return `<strong>${match.slice(2, match.length - 2)}</strong>`;
   });
 
   console.log(matchBold, "Bold");
 
-  if (regexHeading.test(matchBold)) {
-    let matchHeading = matchBold.replace(regexHeading, (match) => {
+  //convert to italics
+  let matchItalics = matchBold.replace(regexItalic, (match) => {
+    pTagCheck = true;
+    return `<em>${match.slice(1, match.length - 1)}</em>`;
+  });
+
+  console.log(matchItalics, "Italics");
+
+  // Insert heading
+  if (regexHeading.test(matchItalics)) {
+    let matchHeading = matchItalics.replace(regexHeading, (match) => {
       let count = 0;
       for (const letter of match) {
         letter === "#" ? count++ : null;
@@ -28,6 +34,15 @@ export function convertMarkdown(stringTest) {
 
     return matchHeading;
   } else {
-    return matchBold;
+    // return pTagCheck ? `<p>${matchItalics}</p>` : matchItalics;
+    return matchItalics;
   }
 }
+
+export function convertMarkdown(stringTest) {
+  const markdownInput = stringTest;
+  const regexWordFormat = /^/gi;
+}
+
+// \[.*\]\(.*\)
+// (?<=\[).*(?=\])|(?<=\().*(?=\))
