@@ -3,7 +3,8 @@ function wordToHtml(string) {
 
   const regexBold = /(\*\*).*\1|(\_\_).*\2/gi;
   const regexItalic = /(\*).*\1|(\_).*\2/gi;
-  const regexHeading = /^#{1,6}\s.*/gi;
+  const regexHeading = /^#{1,6}\s.*/gim;
+  const regexBlockQuote = /^>\s.*/gim;
   let pTagCheck = false;
 
   //convert to bold
@@ -12,15 +13,11 @@ function wordToHtml(string) {
     return `<strong>${match.slice(2, match.length - 2)}</strong>`;
   });
 
-  console.log(matchBold, "Bold");
-
   //convert to italics
   let matchItalics = matchBold.replace(regexItalic, (match) => {
     pTagCheck = true;
     return `<em>${match.slice(1, match.length - 1)}</em>`;
   });
-
-  console.log(matchItalics, "Italics");
 
   // Insert heading
   if (regexHeading.test(matchItalics)) {
@@ -33,6 +30,11 @@ function wordToHtml(string) {
     });
 
     return matchHeading;
+  } else if (regexBlockQuote.test(matchItalics)) {
+    let matchQuote = matchItalics.replace(regexBlockQuote, (match) => {
+      return `<blockquote>${match.slice(2, match.length)}</blockquote>`;
+    });
+    return matchQuote;
   } else {
     return matchItalics;
   }
@@ -53,18 +55,38 @@ export function wordToImage(string) {
   return matchImage;
 }
 
-export function convertMarkdown(stringTest) {
-  const markdownInput = stringTest;
+export function wordToLink(string) {
+  const markdownInput = string;
+  const regexLink = /(?=\[).*(?<=\))/gi;
+
+  let matchLink = markdownInput.replace(regexLink, (match) => {
+    const [linkText, url] = match.slice(1, match.length - 1).split("](");
+    return `<a href="${url}">${linkText}</a>`;
+  });
+  return matchLink;
+}
+
+export function convertMarkdown() {
+  const markdownInput = document.querySelector("textarea").value;
 
   if (/^\!/gi.test(markdownInput) && /\)$/gi.test(markdownInput)) {
     //Run the image element
     return wordToImage(markdownInput);
   } else if (/^\[/gi.test(markdownInput) && /\)$/gi.test(markdownInput)) {
     //Run the link element
+    return wordToLink(markdownInput);
   } else {
     return wordToHtml(markdownInput);
   }
 }
 
-// \[.*\]\(.*\)
-// (?<=\[).*(?=\])|(?<=\().*(?=\))
+const htmlOutput = document.getElementById("html-output");
+const preview = document.getElementById("preview");
+const markdownEl = document.querySelector("textarea");
+
+console.log(markdownEl);
+
+markdownEl.addEventListener("input", (e) => {
+  htmlOutput.innerText = convertMarkdown();
+  preview.innerHTML = convertMarkdown();
+});

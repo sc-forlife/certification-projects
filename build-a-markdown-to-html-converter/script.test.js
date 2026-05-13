@@ -95,3 +95,41 @@ describe("wordToImage", () => {
     );
   });
 });
+
+describe("wordToLink", () => {
+  it("Return string converted into Link element", () => {
+    const match = convertMarkdown("[link text](URL)");
+    expect(match).toBe('<a href="URL">link text</a>');
+  });
+  it("Return multi line string converted into Link element", () => {
+    const match = convertMarkdown("[link text](URL)\n[link text2](URL2)");
+    expect(match).toBe(
+      '<a href="URL">link text</a>\n<a href="URL2">link text2</a>',
+    );
+  });
+});
+
+describe("blockquote", () => {
+  it("Return string converted into blockquote element", () => {
+    const match = convertMarkdown("> this is a quote");
+    expect(match).toBe("<blockquote>this is a quote</blockquote>");
+  });
+  it("Return multi line string converted into blockquote element", () => {
+    const match = convertMarkdown(
+      "> this is a quote \n> this is another quote",
+    );
+    expect(match).toBe(
+      "<blockquote>this is a quote </blockquote>\n<blockquote>this is another quote</blockquote>",
+    );
+  });
+  it("Return string not converted into blockquote element", () => {
+    const match = convertMarkdown("some text > this is a quote");
+    expect(match).toBe("some text > this is a quote");
+  });
+  it("Return string converted into blockquote and bold and italics element", () => {
+    const match = convertMarkdown("> **this is a *quote***");
+    expect(match).toBe(
+      "<blockquote><strong>this is a <em>quote</em></strong></blockquote>",
+    );
+  });
+});
