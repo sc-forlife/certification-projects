@@ -1,5 +1,5 @@
 function wordToHtml(string) {
-  const markdownInput = stringTest;
+  const markdownInput = string;
 
   const regexBold = /(\*\*).*\1|(\_\_).*\2/gi;
   const regexItalic = /(\*).*\1|(\_).*\2/gi;
@@ -34,14 +34,36 @@ function wordToHtml(string) {
 
     return matchHeading;
   } else {
-    // return pTagCheck ? `<p>${matchItalics}</p>` : matchItalics;
     return matchItalics;
   }
 }
 
+export function wordToImage(string) {
+  const markdownInput = string;
+
+  //You are catching word per word .... Catch the entire expression then you format and replace once
+
+  const regexImage = /(?=\!).*(?<=\))/gi;
+
+  let matchImage = markdownInput.replace(regexImage, (match) => {
+    const [altText, imageSource] = match.slice(2, match.length - 1).split("](");
+    return `<img alt="${altText}" src="${imageSource}">`;
+  });
+
+  return matchImage;
+}
+
 export function convertMarkdown(stringTest) {
   const markdownInput = stringTest;
-  const regexWordFormat = /^/gi;
+
+  if (/^\!/gi.test(markdownInput) && /\)$/gi.test(markdownInput)) {
+    //Run the image element
+    return wordToImage(markdownInput);
+  } else if (/^\[/gi.test(markdownInput) && /\)$/gi.test(markdownInput)) {
+    //Run the link element
+  } else {
+    return wordToHtml(markdownInput);
+  }
 }
 
 // \[.*\]\(.*\)

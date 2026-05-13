@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import { convertMarkdown } from "./script.js";
+import { wordToImage } from "./script.js";
 
 describe("convertMarkdown", () => {
   it("Return string Converted to HTML", () => {
@@ -77,5 +78,20 @@ describe("convertMarkdown", () => {
     const match = convertMarkdown("# **title 1**");
 
     expect(match).toBe("<h1><strong>title 1</strong></h1>");
+  });
+});
+
+describe("wordToImage", () => {
+  it("Return string converted into Image element", () => {
+    const match = convertMarkdown("![alt-text](image-source)");
+    expect(match).toBe('<img alt="alt-text" src="image-source">');
+  });
+  it("Return multi line string converted into Image element", () => {
+    const match = convertMarkdown(
+      "![alt-text](image-source)\n![alt-text2](image-source2)",
+    );
+    expect(match).toBe(
+      '<img alt="alt-text" src="image-source">\n<img alt="alt-text2" src="image-source2">',
+    );
   });
 });
