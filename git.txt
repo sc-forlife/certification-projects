@@ -1,0 +1,3 @@
+**/node_modules/
+git rm -r --cached build-a-Drum-Machine/node_modules
+git rm -r --cached build-a-markdown-to-html-converter/node_modules

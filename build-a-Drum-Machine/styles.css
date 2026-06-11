@@ -1,0 +1,41 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+#drum-machine {
+  background-color: grey;
+  width: 300px;
+  height: 400px;
+  border-radius: 10px;
+}
+
+#pad-bank {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.drum-pad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+  height: 70px;
+  width: 90px;
+}
+
+#display {
+  background-color: blueviolet;
+  height: 50px;
+  width: 95%;
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

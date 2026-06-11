@@ -3,19 +3,39 @@
   <head>
     <meta charset="utf-8" />
     <title>Drum Machine</title>
+    <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
     <div id="drum-machine">
       <div id="pad-bank">
-        <div class="drum-pad" id="heater1">
+        <div class="drum-pad" id="Heater-1">
           Q
           <audio class="clip" id="Q">
-            <source src="Heater-1.mp3" type="audio/mpeg" />
+            <source
+              src="https://cdn.freecodecamp.org/curriculum/drum/Heater-1.mp3"
+              type="audio/mpeg"
+            />
           </audio>
         </div>
-        <div class="drum-pad" id="heater2">w</div>
-        <div class="drum-pad" id="heater3">e</div>
-        <div class="drum-pad" id="heater4">a</div>
+        <div class="drum-pad" id="Heater-2">
+          W
+          <audio class="clip" id="Q">
+            <source
+              src="https://cdn.freecodecamp.org/curriculum/drum/Heater-2.mp3"
+              type="audio/mpeg"
+            />
+          </audio>
+        </div>
+        <div class="drum-pad" id="heater3">
+          E
+          <audio class="clip" id="Q">
+            <source
+              src="https://cdn.freecodecamp.org/curriculum/drum/Heater-3.mp3"
+              type="audio/mpeg"
+            />
+          </audio>
+        </div>
+        <div class="drum-pad" id="Heater-4_1">a</div>
         <div class="drum-pad" id="clap">s</div>
         <div class="drum-pad" id="open-hh">d</div>
         <div class="drum-pad" id="kick-n'hat">z</div>
@@ -24,5 +44,6 @@
       </div>
       <p id="display"></p>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
