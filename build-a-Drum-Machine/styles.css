@@ -27,6 +27,15 @@ body {
   background-color: aqua;
   height: 70px;
   width: 90px;
+  border-radius: 3px;
+}
+
+.drum-pad:hover {
+  background-color: rgba(0, 255, 255, 0.705);
+}
+
+.drum-pad:active {
+  transform: scale(1.05);
 }
 
 #display {

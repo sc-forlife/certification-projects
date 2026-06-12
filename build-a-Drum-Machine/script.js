@@ -6,25 +6,32 @@ function onPlay(audio) {
 
   display.textContent = audio.title;
 
+  display.style;
+
   audio.addEventListener("ended", () => {
     display.textContent = "";
   });
 }
 
-function keyDownPlay(key) {
-  if (!document.getElementById(key.toUpperCase())) {
-    return;
-  }
+function keyDown(e) {
+  const drumPad = document.querySelector(`.${e.code}`);
+  drumPad.style.backgroundColor = "rgba(0, 255, 255, 0.705)";
+  keyUp(drumPad);
+}
 
-  const sound = document.getElementById(key.toUpperCase());
-
-  onPlay(sound);
+function keyUp(drumPad) {
+  document.addEventListener("keyup", () => {
+    drumPad.style.backgroundColor = "aqua";
+  });
 }
 
 padBank.addEventListener("click", (e) => {
-  onPlay(e.target.childNodes[1], e.target.getAttribute("aria-label"));
+  onPlay(e.target.childNodes[1]);
 });
 
 document.addEventListener("keydown", (e) => {
-  keyDownPlay(e.key);
+  const sound = document.getElementById(e.key.toUpperCase());
+  if (!sound) return;
+  onPlay(sound);
+  keyDown(e);
 });
