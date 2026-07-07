@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { addOption } from "./script";
 import { vote } from "./script";
+import { displayResults } from "./script";
 
 describe("addOption", () => {
   it("Return Added to the poll , if it does not exist and Return already exists , if its a duplicate", () => {
@@ -27,6 +28,15 @@ describe("vote", () => {
     );
     expect(vote(option, voterId)).toBe(
       `Voter ${voterId} has already voted for "${option}".`,
+    );
+  });
+});
+
+describe("displayResults", () => {
+  it("Return poll results in a format", () => {
+    const results = displayResults();
+    expect(results).toBe(
+      "Poll Results:\nGerman: 2 votes\nFrance: 2 votes\nSpain: 0 votes\nEgypt: 1 votes",
     );
   });
 });

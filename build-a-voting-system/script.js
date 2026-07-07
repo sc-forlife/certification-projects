@@ -32,6 +32,11 @@ vote("German", 1);
 vote("France", 3);
 vote("France", 4);
 
-function displayResults() {
-  poll.forEach((option, value) => {});
+export function displayResults() {
+  let displayText = "Poll Results:";
+  poll.forEach((value, key) => {
+    console.log(value, key);
+    displayText += `\n${key}: ${value.size} votes`;
+  });
+  return displayText;
 }
