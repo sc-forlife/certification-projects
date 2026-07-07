@@ -12,7 +12,7 @@ export function addOption(option) {
 }
 
 export function vote(option, voterId) {
-  if (!poll.has(option)) return `Option "${option}" does not exists.`;
+  if (!poll.has(option)) return `Option "${option}" does not exist.`;
 
   const pollOption = poll.get(option);
   if (pollOption.has(voterId)) {

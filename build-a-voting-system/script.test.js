@@ -16,9 +16,12 @@ describe("addOption", () => {
 
 describe("vote", () => {
   it("Return Option does not exist , if option not in poll", () => {
-    const option = "Germany";
-    const voterId = 2;
-    expect(vote(option, voterId)).toBe(`Option "${option}" does not exists.`);
+    let option = "Germany";
+    let voterId = 2;
+    expect(vote(option, voterId)).toBe(`Option "${option}" does not exist.`);
+    option = "Nigeria";
+    voterId = "traveler2";
+    expect(vote(option, voterId)).toBe(`Option "${option}" does not exist.`);
   });
   it("Return Voter voted for , if option in poll and not duplicate", () => {
     const option = "Egypt";
